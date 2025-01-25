@@ -1,19 +1,26 @@
-import { Router } from 'express';
+import { Router, Request, Response } from 'express';
+import WeatherService from '../../service/weatherService';
+import HistoryService from '../../service/historyService';
+
 const router = Router();
 
-// import HistoryService from '../../service/historyService.js';
-// import WeatherService from '../../service/weatherService.js';
+router.post('/', async (req: Request, res: Response): Promise<void> => {
+  const { cityName } = req.body;
 
-// TODO: POST Request with city name to retrieve weather data
-router.post('/', (req, res) => {
-  // TODO: GET weather data from city name
-  // TODO: save city to search history
+  if (!cityName) {
+    res.status(400).json({ error: 'City name is required.' });
+    return;
+  }
+
+  try {
+    const weatherData = await WeatherService.getWeatherForCity(cityName);
+    await HistoryService.addCity(cityName); // Save the city in history
+    res.status(200).json(weatherData);
+  } catch (error) {
+    const err = error as Error;
+    console.error('Error fetching weather data:', err.message);
+    res.status(500).json({ error: 'Failed to retrieve weather data.' });
+  }
 });
-
-// TODO: GET search history
-router.get('/history', async (req, res) => {});
-
-// * BONUS TODO: DELETE city from search history
-router.delete('/history/:id', async (req, res) => {});
 
 export default router;

@@ -1,17 +1,51 @@
-// TODO: Define a City class with name and id properties
+import fs from 'fs/promises';
+import path from 'path';
 
-// TODO: Complete the HistoryService class
+const historyFilePath = path.join(__dirname, '../../db/searchHistory.json');
+
 class HistoryService {
-  // TODO: Define a read method that reads from the searchHistory.json file
-  // private async read() {}
-  // TODO: Define a write method that writes the updated cities array to the searchHistory.json file
-  // private async write(cities: City[]) {}
-  // TODO: Define a getCities method that reads the cities from the searchHistory.json file and returns them as an array of City objects
-  // async getCities() {}
-  // TODO Define an addCity method that adds a city to the searchHistory.json file
-  // async addCity(city: string) {}
-  // * BONUS TODO: Define a removeCity method that removes a city from the searchHistory.json file
-  // async removeCity(id: string) {}
+  // Read the history file
+  private async readHistory(): Promise<string[]> {
+    try {
+      const data = await fs.readFile(historyFilePath, 'utf-8');
+      return JSON.parse(data);
+    } catch (error) {
+      const err = error as Error;
+      console.error('Error reading history file:', err.message);
+      return [];
+    }
+  }
+
+  // Write to the history file
+  private async writeHistory(cities: string[]) {
+    try {
+      await fs.writeFile(historyFilePath, JSON.stringify(cities, null, 2));
+    } catch (error) {
+      const err = error as Error;
+      console.error('Error writing to history file:', err.message);
+    }
+  }
+
+  // Add a city to the search history
+  public async addCity(city: string) {
+    const cities = await this.readHistory();
+    if (!cities.includes(city)) {
+      cities.push(city);
+      await this.writeHistory(cities);
+    }
+  }
+
+  // Get all cities from the search history
+  public async getCities(): Promise<string[]> {
+    return await this.readHistory();
+  }
+
+  // Remove a city from the search history
+  public async removeCity(city: string) {
+    const cities = await this.readHistory();
+    const updatedCities = cities.filter((c) => c !== city);
+    await this.writeHistory(updatedCities);
+  }
 }
 
 export default new HistoryService();
