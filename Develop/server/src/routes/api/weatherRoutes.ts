@@ -14,13 +14,13 @@ router.post('/', async (req: Request, res: Response): Promise<void> => {
 
   try {
     const weatherData = await WeatherService.getWeatherForCity(cityName);
-    await HistoryService.addCity(cityName); // Save the city in history
+    await HistoryService.addCity(cityName);
     res.status(200).json(weatherData);
-  } catch (error) {
-    const err = error as Error;
-    console.error('Error fetching weather data:', err.message);
+  } catch (error: any) {
+    console.error('Error fetching weather data:', error.message);
     res.status(500).json({ error: 'Failed to retrieve weather data.' });
   }
 });
+
 
 export default router;

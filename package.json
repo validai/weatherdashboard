@@ -16,5 +16,15 @@
     "url": "https://github.com/validai/weatherdashboard/issues"
   },
   "homepage": "https://github.com/validai/weatherdashboard#readme",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "fs": "^0.0.1-security",
+    "uuid": "^11.0.5"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.10"
+  }
 }

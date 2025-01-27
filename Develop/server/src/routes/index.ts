@@ -1,10 +1,13 @@
 import { Router } from 'express';
+import apiRoutes from './api/index';
+import htmlRoutes from './htmlRoutes';
+
 const router = Router();
 
-import apiRoutes from './api/index.js';
-import htmlRoutes from './htmlRoutes.js';
-
+// Use API routes for '/api'
 router.use('/api', apiRoutes);
+
+// Use HTML routes for '/'
 router.use('/', htmlRoutes);
 
 export default router;
