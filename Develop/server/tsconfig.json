@@ -8,10 +8,10 @@
     "resolveJsonModule": true, // Enable importing JSON modules.
 
     /* Root Directory */
-    "rootDir": "./server/src", // Ensure `src` is the root directory for input files.
+    "rootDir": "./src", // Ensure `src` is the root directory for input files.
 
     /* Emit */
-    "outDir": "./server/dist", // Emit all compiled files to `dist`.
+    "outDir": "./dist", // Emit all compiled files to `dist`.
     "target": "ESNext", // Use the latest ECMAScript features.
     "noEmitOnError": true, // Prevent emitting files if type errors are present.
 

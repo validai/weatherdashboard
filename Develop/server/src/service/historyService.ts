@@ -1,33 +1,38 @@
 import fs from 'fs/promises';
 import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Define __dirname for ES module compatibility
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const historyFilePath = path.join(__dirname, '../../db/searchHistory.json');
 
 class HistoryService {
   // Read the history file
-  private async readHistory(): Promise<string[]> {
+  async readHistory() {
     try {
       const data = await fs.readFile(historyFilePath, 'utf-8');
       return JSON.parse(data);
     } catch (error) {
-      const err = error as Error;
+      const err = error;
       console.error('Error reading history file:', err.message);
       return [];
     }
   }
 
   // Write to the history file
-  private async writeHistory(cities: string[]) {
+  async writeHistory(cities) {
     try {
       await fs.writeFile(historyFilePath, JSON.stringify(cities, null, 2));
     } catch (error) {
-      const err = error as Error;
+      const err = error;
       console.error('Error writing to history file:', err.message);
     }
   }
 
   // Add a city to the search history
-  public async addCity(city: string) {
+  async addCity(city) {
     const cities = await this.readHistory();
     if (!cities.includes(city)) {
       cities.push(city);
@@ -36,12 +41,12 @@ class HistoryService {
   }
 
   // Get all cities from the search history
-  public async getCities(): Promise<string[]> {
+  async getCities() {
     return await this.readHistory();
   }
 
   // Remove a city from the search history
-  public async removeCity(city: string) {
+  async removeCity(city) {
     const cities = await this.readHistory();
     const updatedCities = cities.filter((c) => c !== city);
     await this.writeHistory(updatedCities);

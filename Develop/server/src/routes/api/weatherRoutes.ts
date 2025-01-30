@@ -2,8 +2,8 @@ import { Router, Request, Response } from 'express';
 import WeatherService from "../../service/weatherService.js";
 import HistoryService from "../../service/historyService.js";
 
-
 const router = Router();
+const historyService = new HistoryService();
 
 // POST Request: Get weather data by city name and save to history
 router.post('/', async (req: Request, res: Response): Promise<void> => {
@@ -16,7 +16,7 @@ router.post('/', async (req: Request, res: Response): Promise<void> => {
 
     try {
         const weatherData = await WeatherService.getWeatherForCity(cityName);
-        await HistoryService.addCity(cityName);
+        await historyService.addCity(cityName);
         res.status(200).json(weatherData);
     } catch (error) {
         console.error('Error fetching weather data:', error instanceof Error ? error.message : error);
@@ -27,7 +27,7 @@ router.post('/', async (req: Request, res: Response): Promise<void> => {
 // GET Request: Retrieve weather history
 router.get('/history', async (_: Request, res: Response): Promise<void> => {
     try {
-        const history = await HistoryService.getCities();
+        const history = await historyService.getCities();
         res.status(200).json(history);
     } catch (error) {
         console.error('Error fetching weather history:', error instanceof Error ? error.message : error);

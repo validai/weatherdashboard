@@ -1,34 +1,36 @@
 {
   "compilerOptions": {
     /* Language and Environment */
-    "target": "ES2020", /* Set the JavaScript language version for emitted JavaScript */
-    "module": "ESNext", /* Specify what module code is generated */
-    "moduleResolution": "Bundler", /* Specify how TypeScript looks up a file from a given module specifier */
+    "target": "ES2020",                /* Specifies the ECMAScript target version for generated JavaScript. */
+    "module": "ESNext",                /* Sets the module system for import/export compatibility. */
+    "moduleResolution": "Bundler",    /* Determines how module paths are resolved in TypeScript. */
 
     /* Input and Output Configuration */
-    "rootDir": "./server/src", /* Root directory of input files relative to this file */
-    "outDir": "./server/dist", /* Redirect output structure to the directory */
+    "rootDir": "./server/src",         /* Defines the root directory containing source TypeScript files. */
+    "outDir": "./server/dist",         /* Specifies the output directory for compiled JavaScript files. */
 
     /* JavaScript Support */
-    "allowJs": true, /* Allow JavaScript files to be a part of your program */
-    "checkJs": true, /* Enable error reporting in type-checked JavaScript files */
+    "allowJs": true,                    /* Enables JavaScript files in the project. */
+    "checkJs": true,                    /* Reports type errors in JavaScript files. */
 
     /* Interop Constraints */
-    "esModuleInterop": true, /* Emit additional JavaScript to ease support for importing CommonJS modules */
-    "allowSyntheticDefaultImports": true, /* Allow default imports from modules with no default export */
-    "forceConsistentCasingInFileNames": true, /* Ensure casing is correct in imports */
+    "esModuleInterop": true,            /* Ensures interoperability between CommonJS and ES Modules. */
+    "allowSyntheticDefaultImports": true, /* Allows default imports from modules without a default export. */
+    "forceConsistentCasingInFileNames": true, /* Enforces consistent casing in import paths. */
 
     /* Type Checking */
-    "strict": true, /* Enable strict type checking options */
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "exactOptionalPropertyTypes": true, /* Interpret optional property types strictly */
-    "noImplicitReturns": true, /* Enable error reporting for code paths that do not explicitly return in a function */
-    "noImplicitOverride": true, /* Ensure overriding members in derived classes are marked with an override modifier */
-    "useUnknownInCatchVariables": true, /* Ensure 'unknown' is used for catch clause variables */
-    "sourceMap": true /* Generate source maps for debugging */
+    "strict": true,                     /* Enables all strict type-checking options. */
+    "noUnusedLocals": true,             /* Reports unused local variables. */
+    "noUnusedParameters": true,         /* Reports unused function parameters. */
+    "noFallthroughCasesInSwitch": true, /* Prevents fallthrough cases in switch statements. */
+    "exactOptionalPropertyTypes": true, /* Enforces exact types for optional properties. */
+    "noImplicitReturns": true,          /* Ensures all code paths in functions return a value. */
+    "noImplicitOverride": true,         /* Requires explicitly marking overridden methods. */
+    "useUnknownInCatchVariables": true, /* Uses "unknown" type for catch variables. */
+    "sourceMap": true                   /* Generates source maps for easier debugging. */
   },
-  "include": ["./server/src/**/*.ts"], /* Include all TypeScript files in the src directory and subdirectories */
-  "exclude": ["node_modules", "server/dist"] /* Exclude node_modules and dist directories */
+
+  /* File Inclusion and Exclusion */
+  "include": ["./server/src/**/*.ts"],  /* Includes all TypeScript files in the src directory and subdirectories. */
+  "exclude": ["node_modules", "server/dist"] /* Excludes the node_modules and dist directories from compilation. */
 }
