@@ -3,7 +3,9 @@
     /* Language and Environment */
     "target": "ES2020",                /* Specifies the ECMAScript target version for generated JavaScript. */
     "module": "ESNext",                /* Sets the module system for import/export compatibility. */
-    "moduleResolution": "Bundler",    /* Determines how module paths are resolved in TypeScript. */
+    "moduleResolution": "NodeNext",    /* Determines how module paths are resolved in TypeScript. */
+    "composite": true,                 /* Enables incremental compilation. */
+  
 
     /* Input and Output Configuration */
     "rootDir": "./server/src",         /* Defines the root directory containing source TypeScript files. */
@@ -31,6 +33,6 @@
   },
 
   /* File Inclusion and Exclusion */
-  "include": ["./server/src/**/*.ts"],  /* Includes all TypeScript files in the src directory and subdirectories. */
-  "exclude": ["node_modules", "server/dist"] /* Excludes the node_modules and dist directories from compilation. */
+  "include": [],  /* Includes all TypeScript files in the src directory and subdirectories. */
+  "exclude": ["client, server"] /* Excludes the node_modules and dist directories from compilation. */
 }

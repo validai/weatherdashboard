@@ -9,30 +9,33 @@ const __dirname = path.dirname(__filename);
 const historyFilePath = path.join(__dirname, '../../db/searchHistory.json');
 
 class HistoryService {
-  // Read the history file
-  async readHistory() {
+  async readHistory(): Promise<string[]> {
     try {
       const data = await fs.readFile(historyFilePath, 'utf-8');
       return JSON.parse(data);
     } catch (error) {
-      const err = error;
-      console.error('Error reading history file:', err.message);
+      if (error instanceof Error) {
+        console.error('Error reading history file:', error.message);
+      } else {
+        console.error('Unknown error reading history file:', error);
+      }
       return [];
     }
   }
 
-  // Write to the history file
-  async writeHistory(cities) {
+  async writeHistory(cities: string[]): Promise<void> {
     try {
       await fs.writeFile(historyFilePath, JSON.stringify(cities, null, 2));
     } catch (error) {
-      const err = error;
-      console.error('Error writing to history file:', err.message);
+      if (error instanceof Error) {
+        console.error('Error writing to history file:', error.message);
+      } else {
+        console.error('Unknown error writing to history file:', error);
+      }
     }
   }
 
-  // Add a city to the search history
-  async addCity(city) {
+  async addCity(city: string): Promise<void> {
     const cities = await this.readHistory();
     if (!cities.includes(city)) {
       cities.push(city);
@@ -40,17 +43,15 @@ class HistoryService {
     }
   }
 
-  // Get all cities from the search history
-  async getCities() {
+  async getCities(): Promise<string[]> {
     return await this.readHistory();
   }
 
-  // Remove a city from the search history
-  async removeCity(city) {
+  async removeCity(city: string): Promise<void> {
     const cities = await this.readHistory();
-    const updatedCities = cities.filter((c) => c !== city);
+    const updatedCities = cities.filter((c: string) => c !== city);
     await this.writeHistory(updatedCities);
   }
 }
 
-export default new HistoryService();
+export default HistoryService;
