@@ -2,7 +2,7 @@
   "compilerOptions": {
     /* Language and Environment */
     "target": "ES2020",                /* Specifies the ECMAScript target version for generated JavaScript. */
-    "module": "ESNext",                /* Sets the module system for import/export compatibility. */
+    "module": "NodeNext",                /* Sets the module system for import/export compatibility. */
     "moduleResolution": "NodeNext",    /* Determines how module paths are resolved in TypeScript. */
     "composite": true,                 /* Enables incremental compilation. */
   
@@ -34,5 +34,5 @@
 
   /* File Inclusion and Exclusion */
   "include": [],  /* Includes all TypeScript files in the src directory and subdirectories. */
-  "exclude": ["client, server"] /* Excludes the node_modules and dist directories from compilation. */
+  "exclude": ["client", "server", "node_modules", "dist"] /* Excludes the node_modules and dist directories from compilation. */
 }
