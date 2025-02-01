@@ -1,23 +1,27 @@
+// Import necessary modules for __dirname workaround
+import { fileURLToPath } from 'url';
+import { dirname, resolve, join } from 'path';
+
+// Create __filename and __dirname equivalents
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 import dotenv from 'dotenv';
 import express, { Request, Response, NextFunction } from 'express';
+import fs from 'fs';
+
 
 import routes from './routes/index.js';
 
-
-
 dotenv.config();
 
-import fs from 'fs';
-import path from 'path';
-
 // Initialize searchHistory.json if it doesn't exist
-const searchHistoryPath = path.resolve(__dirname, '../data/searchHistory.json');
+const searchHistoryPath = resolve(__dirname, '../data/searchHistory.json');
 
 if (!fs.existsSync(searchHistoryPath)) {
   fs.writeFileSync(searchHistoryPath, JSON.stringify([]));
   console.log('Initialized searchHistory.json as an empty array.');
 }
-
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -27,12 +31,12 @@ console.log('Loaded API Key:', process.env.API_KEY ? 'Exists' : 'Not Found');
 
 // Serve static files from the client 'dist' folder in production
 if (process.env.NODE_ENV === 'production') {
-  const clientDistPath = path.resolve(__dirname, '../../../client/dist');
+  const clientDistPath = resolve(__dirname, '../../../client/dist');
   app.use(express.static(clientDistPath));
 
   // Handle any requests that don't match the API routes
   app.get('*', (_req, res) => {
-    res.sendFile(path.join(clientDistPath, 'index.html'));
+    res.sendFile(join(clientDistPath, 'index.html'));
   });
 }
 
@@ -54,7 +58,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Use API routes
-app.use('api', routes);
+app.use('/api', routes);
 
 // Fallback for invalid API routes
 app.use('/api/*', (_req, res) => {
