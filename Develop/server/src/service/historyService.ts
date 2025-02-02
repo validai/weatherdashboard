@@ -12,7 +12,8 @@ class HistoryService {
   async readHistory(): Promise<string[]> {
     try {
       const data = await fs.readFile(historyFilePath, 'utf-8');
-      return JSON.parse(data);
+      console.log(`Data read from searchHistory.json: ${data}`);
+      return JSON.parse(data || '[]');
     } catch (error) {
       if (error instanceof Error) {
         console.error('Error reading history file:', error.message);
@@ -26,6 +27,7 @@ class HistoryService {
   async writeHistory(cities: string[]): Promise<void> {
     try {
       await fs.writeFile(historyFilePath, JSON.stringify(cities, null, 2));
+      console.log(`Saving data to searchHistory.json: ${JSON.stringify(cities)}`);
     } catch (error) {
       if (error instanceof Error) {
         console.error('Error writing to history file:', error.message);

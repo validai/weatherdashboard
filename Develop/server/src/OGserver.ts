@@ -64,31 +64,25 @@ app.get('/health', (_req: Request, res: Response) => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// POST route for weather search
-app.post('/api/weather', (req: Request, res: Response) => {
-  console.log('Request body:', req.body);
-  const { city } = req.body;
+// // POST route for weather search
+// app.post('/api/weather', (req: Request, res: Response) => {
+//   const { city } = req.body;
 
-  if (!city) {
-    console.error('City is missing in request body');
-    return res.status(400).json({ error: 'City is required' }); // Ensure return
-  }
+//   if (!city) {
+//     return res.status(400).json({ error: 'City is required' });
+//   }
 
-  try {
-    console.log(`Received weather search for city: ${city}`);
-    return res.status(200).json({
-      message: 'Weather search submitted successfully',
-      data: { city },
-    }); // Ensure return
-  } catch (error) {
-    console.error('Unexpected error occurred:', error);
-    return res.status(500).json({ error: 'Internal Server Error' }); // Ensure return
-  }
-});
-
+//   console.log(`Received weather search for city: ${city}`);
+//   res.status(200).json({ message: 'Weather search submitted successfully', data: { city } });
+// });
 
 // Use API routes
 app.use('/api', routes);
+
+// Fallback for invalid API routes
+app.use('/api/*', (_req, res) => {
+  res.status(404).json({ error: 'API endpoint not found' });
+});
 
 // Fallback for all other non-API routes
 app.use('*', (_req, res) => {
@@ -99,15 +93,12 @@ app.use('*', (_req, res) => {
 app.use(
   (err: Error, _req: Request, res: Response, _next: NextFunction) => {
     console.error('Error occurred:', err.message);
-
-    // Ensure every code path sends a response
-    return res.status(500).json({
+    res.status(500).json({
       error: 'Internal Server Error',
       details: process.env.NODE_ENV === 'development' ? err.message : undefined,
     });
   }
 );
-
 
 // Start the server
 app.listen(PORT, () => {
