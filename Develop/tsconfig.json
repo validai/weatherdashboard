@@ -8,8 +8,8 @@
   
 
     /* Input and Output Configuration */
-    "rootDir": "./server/src",         /* Defines the root directory containing source TypeScript files. */
-    "outDir": "./server/dist",         /* Specifies the output directory for compiled JavaScript files. */
+    "rootDir": "./",         /* Defines the root directory containing source TypeScript files. */
+    "outDir": "./dist",         /* Specifies the output directory for compiled JavaScript files. */
 
     /* JavaScript Support */
     "allowJs": true,                    /* Enables JavaScript files in the project. */
@@ -33,6 +33,6 @@
   },
 
   /* File Inclusion and Exclusion */
-  "include": [],  /* Includes all TypeScript files in the src directory and subdirectories. */
-  "exclude": ["client", "server", "node_modules", "dist"] /* Excludes the node_modules and dist directories from compilation. */
+  "include": ["./server/src/**/*", "./client/src/**/*"],  /* Includes all TypeScript files in the src directory and subdirectories. */
+  "exclude": ["node_modules", "dist"] /* Excludes the node_modules and dist directories from compilation. */
 }

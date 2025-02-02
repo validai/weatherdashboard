@@ -16,7 +16,7 @@ import routes from './routes/index.js';
 dotenv.config();
 
 // Initialize searchHistory.json if it doesn't exist
-const searchHistoryPath = resolve(__dirname, '../data/searchHistory.json');
+const searchHistoryPath = resolve(__dirname, '../../data/searchHistory.json');
 
 if (!fs.existsSync(searchHistoryPath)) {
   fs.writeFileSync(searchHistoryPath, JSON.stringify([]));
