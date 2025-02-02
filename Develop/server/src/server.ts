@@ -10,7 +10,6 @@ import dotenv from 'dotenv';
 import express, { Request, Response, NextFunction } from 'express';
 import fs from 'fs';
 
-
 import routes from './routes/index.js';
 
 dotenv.config();
@@ -53,6 +52,17 @@ app.get('/', (_req: Request, res: Response) => {
   `);
 });
 
+// Add a health check endpoint
+app.get('/health', (_req: Request, res: Response) => {
+  res.status(200).json({
+    status: 'OK',
+    timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV || 'development',
+    apiKeyLoaded: !!process.env.API_KEY,
+  });
+  console.log('Health check performed');
+});
+
 // Middleware to parse JSON and URL-encoded data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -65,11 +75,19 @@ app.use('/api/*', (_req, res) => {
   res.status(404).json({ error: 'API endpoint not found' });
 });
 
+// Fallback for all other non-API routes
+app.use('*', (_req, res) => {
+  res.status(404).json({ error: 'Route not found' });
+});
+
 // Error handling middleware
 app.use(
   (err: Error, _req: Request, res: Response, _next: NextFunction) => {
-    console.error(err.stack);
-    res.status(500).json({ error: 'Something went wrong' });
+    console.error('Error occurred:', err.message);
+    res.status(500).json({
+      error: 'Internal Server Error',
+      details: process.env.NODE_ENV === 'development' ? err.message : undefined,
+    });
   }
 );
 
