@@ -11,23 +11,23 @@ const historyFilePath = path.join(__dirname, '../../db/searchHistory.json');
 class HistoryService {
   async readHistory(): Promise<string[]> {
     try {
+      console.log('Reading data from:', historyFilePath); // Logging file path for debugging
       const data = await fs.readFile(historyFilePath, 'utf-8');
-      console.log(`Data read from searchHistory.json: ${data}`);
-      return JSON.parse(data || '[]');
+      return JSON.parse(data);
     } catch (error) {
       if (error instanceof Error) {
         console.error('Error reading history file:', error.message);
       } else {
         console.error('Unknown error reading history file:', error);
       }
-      return [];
+      return []; // Return an empty array on error
     }
   }
 
   async writeHistory(cities: string[]): Promise<void> {
     try {
       await fs.writeFile(historyFilePath, JSON.stringify(cities, null, 2));
-      console.log(`Saving data to searchHistory.json: ${JSON.stringify(cities)}`);
+      console.log('Saving data to searchHistory.json:', JSON.stringify(cities)); // Log saved data
     } catch (error) {
       if (error instanceof Error) {
         console.error('Error writing to history file:', error.message);
