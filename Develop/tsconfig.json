@@ -2,8 +2,8 @@
   "compilerOptions": {
     /* Language and Environment */
     "target": "ES2020",                /* Specifies the ECMAScript target version for generated JavaScript. */
-    "module": "NodeNext",                /* Sets the module system for import/export compatibility. */
-    "moduleResolution": "NodeNext",    /* Determines how module paths are resolved in TypeScript. */
+    "module": "es2022",                /* Sets the module system for import/export compatibility. */
+    "moduleResolution": "Node",    /* Determines how module paths are resolved in TypeScript. */
     "composite": true,                 /* Enables incremental compilation. */
   
 

@@ -27,6 +27,7 @@ console.log('Loaded API Key:', process.env.API_KEY ? 'Exists' : 'Not Found');
 // Serve static files from the client 'dist' folder in production
 if (process.env.NODE_ENV === 'production') {
   const clientDistPath = resolve(__dirname, '../../../client/dist');
+  console.log('Node Environment:', process.env.NODE_ENV);
   app.use(express.static(clientDistPath));
 
   // Handle any requests that don't match the API routes
