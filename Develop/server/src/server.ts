@@ -67,7 +67,7 @@ app.use(express.urlencoded({ extended: true }));
 // POST route for weather search
 app.post('/api/weather', (req: Request, res: Response) => {
   console.log('Request body:', req.body);
-  const { city } = req.body;
+  const { city }: {city: string} = req.body;
 
   if (!city) {
     console.error('City is missing in request body');
