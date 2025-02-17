@@ -16,7 +16,7 @@
     "ext": "ts,json,js",
     "exec": "npx tsc && node dist/server.js"
   },
-  "author": "",
+  "author": "validai",
   "license": "ISC",
   "dependencies": {
     "dayjs": "^1.11.10",
